@@ -20,7 +20,7 @@ const initialState = {
 export default function agentsReducer (state=initialState, action) {
     switch (action.type) {
 
-        case 'ADDAGENT':
+        case 'CREATEAGENT':
             return {
                 ...state,
                 data: state.data.concat(action.payload)

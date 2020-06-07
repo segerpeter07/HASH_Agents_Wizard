@@ -92,7 +92,7 @@ class AgentCard extends React.Component {
             <Card>
                 <CardBody>
                     <StyledCardHeader>
-                        <CardTitle>Name: {agent_name}</CardTitle>
+                        <CardTitle>{agent_name}</CardTitle>
                         {this.renderActionButton()}
                     </StyledCardHeader>
                     <ContentRow>

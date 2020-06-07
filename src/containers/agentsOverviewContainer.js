@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button} from 'shards-react';
+import { Link } from 'react-router-dom';
 
 import {updateAgent, deleteAgent} from '../actions/updateAgent';
 import { AppContainer, AgentCardsContainer, AgentCardItem } from './agentsOverviewContainer.styles';
@@ -54,7 +55,7 @@ class AgentsOverviewContainer extends React.Component {
         return (
             <AppContainer>
                 <h2>Agents overview</h2>
-                <Button>New agent wizard</Button>
+                <Link to="/new-agent"><Button>New agent wizard</Button></Link>
                     <AgentCardsContainer>
                         {this.renderAgentCards()}
                     </AgentCardsContainer>

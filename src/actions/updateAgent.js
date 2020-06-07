@@ -5,6 +5,13 @@ export const updateAgent = (req) => {
     }
 }
 
+export const createAgent = (agent) => {
+    return {
+        type: "CREATEAGENT",
+        payload: agent,
+    }
+}
+
 export const deleteAgent = (agent) => {
     return {
         type: "DELETEAGENT",

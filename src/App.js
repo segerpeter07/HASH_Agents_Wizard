@@ -7,6 +7,7 @@ import {
 import { Provider } from 'react-redux';
 import configureStore from './store';
 import AgentsOverviewContainer from './containers/agentsOverviewContainer';
+import NewAgentContainer from './containers/newAgentContainer';
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "shards-ui/dist/css/shards.min.css"
@@ -18,8 +19,8 @@ function App() {
     <Provider store = { store }>
       <Router>
           <Switch>
+            <Route path="/new-agent"><NewAgentContainer /></Route>
             <Route path="/"><AgentsOverviewContainer /></Route>
-            <Route path="/new-agent"><AgentsOverviewContainer /></Route>
           </Switch>
       </Router>
     </Provider>
