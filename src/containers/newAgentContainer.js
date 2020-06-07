@@ -17,12 +17,14 @@ import {
 
 import {updateAgent, createAgent} from '../actions/updateAgent';
 import NewSingleAgent from '../components/newSingleAgent';
+import NewMultipleAgents from '../components/newMultipleAgents';
 
 class NewAgentContainer extends React.Component {
     constructor(props) {
         super(props);
         this.duplicateAgentDropdown = React.createRef();
         this.createNewAgentCallback = this.createNewAgentCallback.bind(this);
+        this.createMultipleAgentsCallback = this.createMultipleAgentsCallback.bind(this);
         this.setCurrAgent = this.setCurrAgent.bind(this);
         this.state = {
             dropdownOpen: false,
@@ -33,6 +35,7 @@ class NewAgentContainer extends React.Component {
                 relationship: null,
             },
             agents: [],
+            multiAgent: false,
         }
     }
 
@@ -52,6 +55,10 @@ class NewAgentContainer extends React.Component {
 
     createNewAgentCallback(agent) {
         this.props.createAgent(agent);
+    }
+
+    createMultipleAgentsCallback(agent) {
+        console.log("More logic here");
     }
 
     setCurrAgent(agent) {
@@ -100,15 +107,21 @@ class NewAgentContainer extends React.Component {
     }
 
     renderAgentForm() {
-        const {currentAgent} = this.state;
-        if (currentAgent != null) {
+        const {currentAgent, multiAgent} = this.state;
+        if(multiAgent) {
             return (
-                <NewSingleAgent agent={currentAgent} createNewAgentCallback={this.createNewAgentCallback} />
+                <NewMultipleAgents />
+            )
+        } else {
+            if (currentAgent != null) {
+                return (
+                    <NewSingleAgent agent={currentAgent} createNewAgentCallback={this.createNewAgentCallback} />
+                )
+            }
+            return (
+                <NewSingleAgent agent={null} createNewAgentCallback={this.createNewAgentCallback} />
             )
         }
-        return (
-            <NewSingleAgent agent={null} createNewAgentCallback={this.createNewAgentCallback} />
-        )
     }
 
     render() {        
@@ -123,7 +136,11 @@ class NewAgentContainer extends React.Component {
                         <CardSubtitle>Begin the process of creating new agents for your model below.</CardSubtitle>
                         <ContentRow>
                             {this.renderDuplicateDropdown()}
-                            <Button style={{marginLeft: "15px"}}>Generate multiple agents</Button>
+                            {this.state.multiAgent ?
+                                <Button outline style={{marginLeft: "15px"}} onClick={() => this.setState({multiAgent: !this.state.multiAgent})}>Generate single agent</Button>
+                                :
+                                <Button style={{marginLeft: "15px"}} onClick={() => this.setState({multiAgent: !this.state.multiAgent})}>Generate multiple agents</Button>
+                            }
                         </ContentRow>
                         {this.renderAgentForm()}
                     </CardBody>
