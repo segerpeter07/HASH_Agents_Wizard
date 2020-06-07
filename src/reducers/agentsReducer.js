@@ -25,6 +25,12 @@ export default function agentsReducer (state=initialState, action) {
                 ...state,
                 data: state.data.concat(action.payload)
             }
+
+        case 'CREATEMULTIPLEAGENTS':
+            return {
+                ...state,
+                data: state.data.concat(action.payload)
+            }
         
         case 'UPDATEAGENT':
             return {

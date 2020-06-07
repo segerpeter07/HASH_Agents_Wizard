@@ -15,7 +15,7 @@ import {
     DropdownItem,
 } from "shards-react";
 
-import {updateAgent, createAgent} from '../actions/updateAgent';
+import {updateAgent, createAgent, createMultipleAgents} from '../actions/updateAgent';
 import NewSingleAgent from '../components/newSingleAgent';
 import NewMultipleAgents from '../components/newMultipleAgents';
 
@@ -35,7 +35,7 @@ class NewAgentContainer extends React.Component {
                 relationship: null,
             },
             agents: [],
-            multiAgent: true,       // change!
+            multiAgent: false,
         }
     }
 
@@ -57,8 +57,8 @@ class NewAgentContainer extends React.Component {
         this.props.createAgent(agent);
     }
 
-    createMultipleAgentsCallback(agent) {
-        console.log("More logic here");
+    createMultipleAgentsCallback(numAgents, params) {
+        this.props.createMultipleAgents(numAgents, params);
     }
 
     setCurrAgent(agent) {
@@ -152,7 +152,8 @@ class NewAgentContainer extends React.Component {
 
 const mapDispatchToProps = {
     updateAgent,
-    createAgent
+    createAgent,
+    createMultipleAgents
 }
 
 const mapStateToProps = (state) => {

@@ -54,7 +54,8 @@ class NewMultipleAgents extends React.Component {
 
     render() {
         const {createMultipleAgentsCallback} = this.props;
-        const {xRange, yRange, numAgents} = this.state;
+        const {xRange, yRange, numAgents, base_name} = this.state;
+        let params = {base_name, xRange, yRange}
 
         return(
             <ContentContainer>
@@ -73,6 +74,14 @@ class NewMultipleAgents extends React.Component {
                     >
                         Our system currently supports up to 100 agents.
                     </Tooltip>
+                </ContentRow>
+                <ContentRow>
+                    Base name:
+                    <FormInput
+                        style={{maxWidth: '200px', marginLeft:"15px"}}
+                        size="sm"
+                        onChange={(e) => this.setState({base_name: e.target.value})}
+                    />
                 </ContentRow>
                 Position:
                 <SliderContainer>
@@ -94,7 +103,14 @@ class NewMultipleAgents extends React.Component {
                         range={{min: 0, max: 100}}
                     />
                 </SliderContainer>
-                <Link to="/"><Button style={{float: "right"}} onClick={() => createMultipleAgentsCallback(this.state.agent)}>Create {numAgents} agents</Button></Link>
+                <Link to="/">
+                    <Button 
+                        style={{float: "right"}}
+                        onClick={() => createMultipleAgentsCallback(this.state.numAgents, params)}
+                    >
+                        Create {numAgents} agents
+                    </Button>
+                </Link>
             </ContentContainer>
         )
     }
