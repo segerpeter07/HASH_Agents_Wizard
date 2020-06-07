@@ -35,7 +35,7 @@ class NewAgentContainer extends React.Component {
                 relationship: null,
             },
             agents: [],
-            multiAgent: false,
+            multiAgent: true,       // change!
         }
     }
 
@@ -110,7 +110,7 @@ class NewAgentContainer extends React.Component {
         const {currentAgent, multiAgent} = this.state;
         if(multiAgent) {
             return (
-                <NewMultipleAgents />
+                <NewMultipleAgents createMultipleAgentsCallback={this.createMultipleAgentsCallback} />
             )
         } else {
             if (currentAgent != null) {

@@ -11,3 +11,8 @@ export const ContentRow = styled.div`
     flex: 1;
     flex-direction: row;
 `
+
+export const SliderContainer = styled.div`
+    padding-top: 5px;
+    padding-bottom: 5px;
+`

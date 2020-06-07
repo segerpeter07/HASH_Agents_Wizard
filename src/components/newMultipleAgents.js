@@ -3,92 +3,98 @@ import React from 'react';
 import {
     Button,
     FormInput,
-    FormGroup,
+    Slider,
+    Tooltip
   } from "shards-react";
 import {Link} from 'react-router-dom';
-import {ContentContainer, ContentRow} from './newMultipleAgents.styles';
+import {ContentContainer, ContentRow, SliderContainer} from './newMultipleAgents.styles';
 
 class NewMultipleAgents extends React.Component {
     constructor(props) {
         super(props);
+        this.toggleTooltip = this.toggleTooltip.bind(this);
+        this.handleXSlider = this.handleXSlider.bind(this);
+        this.handleYSlider = this.handleYSlider.bind(this);
         this.state = {
-            agent: {
-                agent_name: null,
-                position: [null, null],
-                related_to: null,
-                relationship: null,
-            }
+            numAgents: null,
+            base_name: null,
+            xRange: [25, 75],
+            yRange: [0, 100],
+            tooltipOpen: false,
         }
     }
 
     changePropertyValue(property, value) {
-        let updatedAgentData = this.state.agent;
-
-        if (property === "pos-x") {
-            updatedAgentData["position"] = [value, this.state.agent.position[1]]
-        } else if (property === "pos-y") {
-            updatedAgentData["position"] = [this.state.agent.position[0], value]
-        } else {
-            updatedAgentData[property] = value;
-        }
-
+        let updatedState = this.state;
+        updatedState[property] = value;
 
         this.setState({
-            ...this.state,
-            agent: updatedAgentData,
+            agent: updatedState,
+        })
+    }
+
+    toggleTooltip() {
+        this.setState({
+            tooltipOpen: !this.state.tooltipOpen
+        })
+    }
+
+    handleXSlider(e) {
+        this.setState({
+            xRange: [parseInt(e[0]), parseInt(e[1])]
+        })
+    }
+
+    handleYSlider(e) {
+        this.setState({
+            yRange: [parseInt(e[0]), parseInt(e[1])]
         })
     }
 
 
     render() {
-        const {agent_name, related_to, position, relationship} = this.state.agent;
         const {createMultipleAgentsCallback} = this.props;
+        const {xRange, yRange, numAgents} = this.state;
 
         return(
             <ContentContainer>
                 <ContentRow>
-                    Agent name:
+                    Number of agents:
                     <FormInput
                         style={{maxWidth: '200px', marginLeft:"15px"}}
                         size="sm"
-                        defaultValue={agent_name ? agent_name : ""}
-                        onChange={(e) => this.changePropertyValue("agent_name", e.target.value)}
+                        onChange={(e) => this.setState({numAgents: e.target.value})}
+                        id="numAgentsInput"
                     />
+                    <Tooltip
+                        open={this.state.tooltipOpen}
+                        target="#numAgentsInput"
+                        toggle={this.toggleTooltip}
+                    >
+                        Our system currently supports up to 100 agents.
+                    </Tooltip>
                 </ContentRow>
-                <ContentRow>
-                    Position (x,y):
-                    <FormInput
-                        style={{maxWidth: '200px', marginRight:"15px", marginLeft:"15px"}}
-                        size="sm"
-                        defaultValue ={position ? this.state.agent.position[0]: ""}
-                        onChange={(e) => this.changePropertyValue("pos-x", e.target.value)}
+                Position:
+                <SliderContainer>
+                    X range: {JSON.stringify(xRange)}
+                    <Slider 
+                        connect
+                        onSlide={this.handleXSlider}
+                        start={xRange}
+                        range={{min: 0, max: 100}}
                     />
-                    <FormInput
-                        style={{maxWidth: '200px'}}
-                        size="sm"
-                        defaultValue ={position ? this.state.agent.position[1]: ""}
-                        onChange={(e) => this.changePropertyValue("pos-y", e.target.value)}
+                </SliderContainer>
+                <SliderContainer>
+                    Y range: {JSON.stringify(yRange)}
+                    <Slider
+                        style={{marginLeft: "15px"}}
+                        connect
+                        onSlide={this.handleYSlider}
+                        start={yRange}
+                        range={{min: 0, max: 100}}
                     />
-                </ContentRow>
-                <ContentRow>
-                    Related to:
-                    <FormInput
-                        style={{maxWidth: '200px', marginLeft:"15px"}}
-                        size="sm"
-                        defaultValue={related_to ? related_to : ""}
-                        onChange={(e) => this.changePropertyValue("related_to", e.target.value)}
-                    />
-                </ContentRow>
-                <ContentRow>
-                    Relationship:
-                    <FormInput
-                        style={{maxWidth: '200px', marginLeft:"15px"}}
-                        size="sm"
-                        defaultValue={(agent_name && related_to) || relationship ? `${agent_name} = (${related_to})` : ""}
-                        onChange={(e) => this.changePropertyValue("relationship", e.target.value)}
-                    />
-                </ContentRow>
-                <Link to="/"><Button style={{float: "right"}} onClick={() => createMultipleAgentsCallback(this.state.agent)}>Create agents</Button></Link>
+                </SliderContainer>
+                <Link to="/"><Button style={{float: "right"}} onClick={() => createMultipleAgentsCallback(this.state.agent)}>Create {numAgents} agents</Button></Link>
             </ContentContainer>
         )
     }
