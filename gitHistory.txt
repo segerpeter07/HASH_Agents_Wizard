@@ -1,0 +1,13 @@
+0000000000000000000000000000000000000000 d898a79d3822baf999c6913960c752f832f1f919 Peter Seger <segerpeter07@gmail.com> 1591447048 +0200	clone: from git@github.com:segerpeter07/hash_agents_wizard.git
+d898a79d3822baf999c6913960c752f832f1f919 484462c04cc0167b75807eb6bd9210e7251fd82b Peter Seger <segerpeter07@gmail.com> 1591447356 +0200	commit: Initial package install and project scaffold
+484462c04cc0167b75807eb6bd9210e7251fd82b c5193618bb7423b6eb4cb1f5e01e33b008398282 Peter Seger <segerpeter07@gmail.com> 1591461235 +0200	commit: Connected redux, built tester data, and started work on agent cards
+c5193618bb7423b6eb4cb1f5e01e33b008398282 89a05a36167e298a3681b2feaa59401e10301225 Peter Seger <segerpeter07@gmail.com> 1591528142 +0200	commit: Built our agent cards with mutable fields
+89a05a36167e298a3681b2feaa59401e10301225 68c6dd584056e71ee5ca35b50bf4df296d8763e5 Peter Seger <segerpeter07@gmail.com> 1591545796 +0200	commit: Added custom fields to new agents wizard
+68c6dd584056e71ee5ca35b50bf4df296d8763e5 a864caa46c69b89db731fabf30b2268e163b47c1 Peter Seger <segerpeter07@gmail.com> 1591546564 +0200	commit: Adding multi agent creation start
+a864caa46c69b89db731fabf30b2268e163b47c1 e3245e2f7d4fef8dcd72323a400f343d0020fbea Peter Seger <segerpeter07@gmail.com> 1591548990 +0200	commit: Added sliders to multi agent creation
+e3245e2f7d4fef8dcd72323a400f343d0020fbea f922da1078096f61e5d6c7aac68aa9854ad3293c Peter Seger <segerpeter07@gmail.com> 1591553879 +0200	commit: Finished generating multiple agents logic
+f922da1078096f61e5d6c7aac68aa9854ad3293c 7d3a787fa3d9bffab47dc00f06d903401f2ff0df Peter Seger <segerpeter07@gmail.com> 1591608929 +0200	commit: Fixed duplicating agents bug
+7d3a787fa3d9bffab47dc00f06d903401f2ff0df 53c9b952409142a72b4928b523b242a5073453c8 Peter Seger <segerpeter07@gmail.com> 1591618790 +0200	commit: Fixed deleteing agents bug
+53c9b952409142a72b4928b523b242a5073453c8 92f8363fb836bb9ff02bdfb8ddf71d0460e84dc9 Peter Seger <segerpeter07@gmail.com> 1591619991 +0200	commit: Trying to fix custom fields bug
+92f8363fb836bb9ff02bdfb8ddf71d0460e84dc9 e0ca22c347624f9b426b52a6386332b1d30d7283 Peter Seger <segerpeter07@gmail.com> 1591620051 +0200	pull origin master: Fast-forward
+e0ca22c347624f9b426b52a6386332b1d30d7283 919ac3bf883c666cf53ce4c9fdbdba61eac7bedd Peter Seger <segerpeter07@gmail.com> 1591620259 +0200	commit: Updating readme
