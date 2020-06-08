@@ -65,8 +65,8 @@ class AgentsOverviewContainer extends React.Component {
             <AppContainer>
                 <h2>Agents overview</h2>
                 <Link to="/new-agent"><Button>New agent wizard</Button></Link>
+                <Link to="/output" style={{marginLeft:"15px"}}><Button>View Raw JSON</Button></Link>
                     <AgentCardsContainer>
-                        {/* {this.renderAgentCards()} */}
                         <AgentOverviewCards agents={agentData} deleteAgentCallback={this.deleteAgentHandler}/>
                     </AgentCardsContainer>
             </AppContainer>
