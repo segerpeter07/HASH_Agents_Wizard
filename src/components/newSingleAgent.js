@@ -40,7 +40,6 @@ class NewSingleAgent extends React.Component {
             this.setState({
                 displayNewProperty: false,
                 agent: updatedAgent,
-                newProperty: "",
             })
         } else {
             this.setState({
@@ -107,7 +106,8 @@ class NewSingleAgent extends React.Component {
     }
 
     render() {
-        const {agent_name, related_to, position, relationship} = this.state.agent;
+        const {agent} = this.state;
+        const {agent_name, related_to, position, relationship} = agent;
         const {createNewAgentCallback} = this.props;
 
         return(
