@@ -18,6 +18,14 @@ class NewSingleAgent extends React.Component {
         }
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.agent !== prevProps.agent) {
+            this.setState({
+                agent: this.props.agent
+            })
+        }
+    }
+
     toggleNewPropertyButton() {
         this.setState({
             displayNewProperty: !this.state.displayNewProperty

@@ -9,31 +9,28 @@ import {
     CardBody,
     CardTitle,
     CardSubtitle,
-    Dropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem,
 } from "shards-react";
 
 import {updateAgent, createAgent, createMultipleAgents} from '../actions/updateAgent';
 import NewSingleAgent from '../components/newSingleAgent';
 import NewMultipleAgents from '../components/newMultipleAgents';
+import DuplicateAgentDropdown from '../components/duplicateAgentDropdown';
 
 class NewAgentContainer extends React.Component {
     constructor(props) {
         super(props);
-        this.duplicateAgentDropdown = React.createRef();
         this.createNewAgentCallback = this.createNewAgentCallback.bind(this);
         this.createMultipleAgentsCallback = this.createMultipleAgentsCallback.bind(this);
         this.setCurrAgent = this.setCurrAgent.bind(this);
+        this.dropdownToggle = this.dropdownToggle.bind(this);
         this.state = {
-            dropdownOpen: false,
             currentAgent: {
                 agent_name: null,
                 position: [null, null],
                 related_to: null,
                 relationship: null,
             },
+            dropdownOpen: false,
             agents: [],
             multiAgent: false,
         }
@@ -62,7 +59,6 @@ class NewAgentContainer extends React.Component {
     }
 
     setCurrAgent(agent) {
-        console.log("Reached here", agent);
         this.setState({
             currentAgent: {
                 agent_name: agent.agent_name,
@@ -74,57 +70,20 @@ class NewAgentContainer extends React.Component {
         })
     }
 
-    renderDuplicateDropdown() {
-        const {agents} = this.state;
-        
-        let dropdownOptions;
-        if (agents.length < 1) {
-            dropdownOptions = (
-                <DropdownItem disabled>No agents to duplicate from</DropdownItem>
-            )
-        } else {
-            dropdownOptions = agents.map(agent => {
-                return (
-                    <DropdownItem onClick={() => this.setCurrAgent(agent)}>{agent.agent_name}</DropdownItem>
-                )
-            })
-        }
-
-        return (
-            <Dropdown
-                ref = {this.duplicateAgentDropdown}
-                open={this.state.dropdownOpen}
-                toggle={() => this.dropdownToggle()}
-            >
-                <DropdownToggle caret>
-                    Copy existing agent
-                </DropdownToggle>
-                <DropdownMenu>
-                    {dropdownOptions}
-                </DropdownMenu>
-            </Dropdown>
-        )
-    }
-
-    renderAgentForm() {
-        const {currentAgent, multiAgent} = this.state;
+    renderAgentForm(currentAgent = this.state.currentAgent, multiAgent = this.state.multiAgent) {
         if(multiAgent) {
             return (
                 <NewMultipleAgents createMultipleAgentsCallback={this.createMultipleAgentsCallback} />
             )
         } else {
-            if (currentAgent != null) {
-                return (
-                    <NewSingleAgent agent={currentAgent} createNewAgentCallback={this.createNewAgentCallback} />
-                )
-            }
             return (
-                <NewSingleAgent agent={null} createNewAgentCallback={this.createNewAgentCallback} />
+                <NewSingleAgent agent={currentAgent} createNewAgentCallback={this.createNewAgentCallback} />
             )
         }
     }
 
-    render() {        
+    render() {     
+        const {currentAgent, multiAgent, agents} = this.state;
         return(
             <WizardContainer>
                 <Card>
@@ -135,14 +94,18 @@ class NewAgentContainer extends React.Component {
                         <CardTitle>New Agent Wizard</CardTitle>
                         <CardSubtitle>Begin the process of creating new agents for your model below.</CardSubtitle>
                         <ContentRow>
-                            {this.renderDuplicateDropdown()}
+                            <DuplicateAgentDropdown
+                                agents={agents}
+                                setAgentCallback={this.setCurrAgent}
+                                dropdownToggleCallback={this.dropdownToggle}
+                            />
                             {this.state.multiAgent ?
                                 <Button outline style={{marginLeft: "15px"}} onClick={() => this.setState({multiAgent: !this.state.multiAgent})}>Generate single agent</Button>
                                 :
                                 <Button style={{marginLeft: "15px"}} onClick={() => this.setState({multiAgent: !this.state.multiAgent})}>Generate multiple agents</Button>
                             }
                         </ContentRow>
-                        {this.renderAgentForm()}
+                        {this.renderAgentForm(currentAgent, multiAgent)}
                     </CardBody>
                 </Card>
             </WizardContainer>
