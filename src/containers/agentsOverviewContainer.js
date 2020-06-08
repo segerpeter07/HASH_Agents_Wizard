@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import {updateAgent, deleteAgent} from '../actions/updateAgent';
 import { AppContainer, AgentCardsContainer, AgentCardItem } from './agentsOverviewContainer.styles';
 import AgentCard from '../components/agentCard';
+import AgentOverviewCards from '../components/agentOverviewCards';
 
 class AgentsOverviewContainer extends React.Component {
     constructor(props) {
@@ -20,8 +21,15 @@ class AgentsOverviewContainer extends React.Component {
         const reduxState = this.props.agentsReducer;
         this.setState({
             data: reduxState.data,
-            reduxTest: reduxState.test
         })
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.agentsReducer.data.length !== prevProps.agentsReducer.data.length) {
+            this.setState({
+                data: this.props.agentsReducer.data,
+            })
+        }
     }
 
     handleSubmit(e) {
@@ -52,12 +60,14 @@ class AgentsOverviewContainer extends React.Component {
     }
 
     render() {
+        const agentData = this.state.data;
         return (
             <AppContainer>
                 <h2>Agents overview</h2>
                 <Link to="/new-agent"><Button>New agent wizard</Button></Link>
                     <AgentCardsContainer>
-                        {this.renderAgentCards()}
+                        {/* {this.renderAgentCards()} */}
+                        <AgentOverviewCards agents={agentData} deleteAgentCallback={this.deleteAgentHandler}/>
                     </AgentCardsContainer>
             </AppContainer>
         );

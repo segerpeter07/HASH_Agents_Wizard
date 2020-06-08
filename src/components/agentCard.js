@@ -24,6 +24,14 @@ class AgentCard extends React.Component {
         }
     }
 
+    componentDidUpdate(prevProps) {
+        if(prevProps.data !== this.props.data) {
+            this.setState({
+                agentData: this.props.data
+            })
+        }
+    }
+
     buttonToggle() {
         this.setState({
             ...this.state,
@@ -32,11 +40,9 @@ class AgentCard extends React.Component {
     }
 
     changePropertyValue(property, value) {
-        console.log(property, value)
         let updatedAgentData = this.state.agentData;
         updatedAgentData[property] = value;
 
-        console.log('updated: ', updatedAgentData)
         this.setState({
             ...this.state,
             agentData: updatedAgentData,
@@ -128,7 +134,7 @@ class AgentCard extends React.Component {
                     </ContentRow>
                     {this.renderCustomAgentProps()}
                     {this.state.propertiesChanged ? 
-                        <Button>Save changes</Button>
+                        <Button onClick={() => this.setState({propertiesChanged: !this.state.propertiesChanged})}>Save changes</Button>
                         :
                         null
                     }

@@ -14,10 +14,8 @@ export const createAgent = (agent) => {
 
 export const createMultipleAgents = (numAgents, params) => {
     const {base_name, xRange, yRange} = params;
-    console.log("numagents: ",numAgents)
     let agents = []
     for(let i = 0; i < numAgents; i++) {
-        console.log("HERE: ", i)
         let xCoord = Math.floor(Math.random()*(xRange[1]-xRange[0]))+xRange[0];
         let yCoord = Math.floor(Math.random()*(yRange[1]-yRange[0]))+yRange[0];
         let fullName = `${base_name}_${i+1}`;
@@ -29,7 +27,6 @@ export const createMultipleAgents = (numAgents, params) => {
         }
         agents = agents.concat(newAgent)
     }
-    console.log("Final agents: ", agents)
     return {
         type: "CREATEMULTIPLEAGENTS",
         payload: agents

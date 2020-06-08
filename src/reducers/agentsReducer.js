@@ -1,5 +1,4 @@
 const initialState = {
-    test: "HELLO",
     data: [
         {
             "agent_name":"test1",
@@ -41,9 +40,9 @@ export default function agentsReducer (state=initialState, action) {
         case 'DELETEAGENT':
             const agent = action.payload
             var index = state.data.indexOf(agent);
-            let updatedData = [];
+            let updatedData = state.data;
             if (index !== -1) {
-                updatedData = state.data.splice(index, 1);
+                updatedData.splice(index, 1);
             }
             return {
                 ...state,
